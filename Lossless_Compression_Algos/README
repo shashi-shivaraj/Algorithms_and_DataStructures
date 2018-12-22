@@ -1,0 +1,2 @@
+This project contains files related to Algorithms for Lossless Data Compression.
+RLE [Run-length encoding],LZW [Lempel–Ziv–Welch] and Huffman Codecs are implemented.
