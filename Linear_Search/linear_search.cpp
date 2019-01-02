@@ -55,7 +55,10 @@ int main()
 	}
 	
 	if(!flag)
-		std::cout<<"key not found"<<std::endl;
+		std::cout<<"key not found"<<std::endl; 
+		
+	//free heap memory
+	delete digits;
 		
 	return 0;
 }
