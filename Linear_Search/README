@@ -1,0 +1,3 @@
+The code performs linear search on a array of integers.
+The complexilty of the algoritn is O(N),where is N is the number of elements in the data set.
+Actually for linear search Big O(N) = Big Omegha(N),thus complexity = Theta(N)
