@@ -76,7 +76,7 @@ int precedance(string x, string y) {
 string infixToPostfix(string infix) {
   int ind = 0;
   int left_brace_count = 0,right_brace_count = 0;
-  bool opFlag = false;  /*set to true if current token is arithmetic operator*/
+  bool prevWasNumber = false;
   string token;
   string postfix("");
 
@@ -92,7 +92,7 @@ string infixToPostfix(string infix) {
 		std::cout<<"wrinting to postfix: "<< token <<std::endl;
 		token = token + " ";
 		postfix = postfix + token;
-		opFlag = false;
+		prevWasNumber = true;
 	}
 	else if(isOperator(token))
 	{
@@ -100,7 +100,12 @@ string infixToPostfix(string infix) {
 		//set opflag 
 		if(token.compare("(") && token.compare(")"))
 		{
-			opFlag = true; // set to true,next token must end with operand
+			if (!prevWasNumber) // Two operators together - error
+			{
+				std::cout << "Syntax Error - not a valid expression!" << std::endl;
+				return string ();
+			}
+			prevWasNumber = false;
 		}
 		
 		if(!token.compare("("))//(b) else if the operator is a (, then push it into the stack
@@ -158,10 +163,11 @@ string infixToPostfix(string infix) {
 	  return string("");
   }
   
-  if(opFlag == true)
-  {
-	  std::cout<<"[ERROR]invalid expression"<<std::endl;
-	  return string("");
+    // if last token was not num, error
+  if (!prevWasNumber)
+   {
+    std::cout << "Syntax Error - not a valid expression." << std::endl;
+    return string();
   }
   
   while(operStack.isEmpty() == false) //Pop all the remaining items in stack and write to postfix expression.
