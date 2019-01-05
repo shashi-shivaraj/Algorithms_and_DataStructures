@@ -20,7 +20,7 @@ int main() {
   cout << endl;
 
   // Uncomment this line to test pushing into a full stack.
-  // stk.push("Germany");
+  stk.push("Germany");
 
   while (!stk.isEmpty()) {
     cout << "popping " << stk.pop() << endl;
@@ -29,7 +29,7 @@ int main() {
   cout << "top of stack " << stk.topOfStack() << endl;
 
   // Uncomment this line to test popping from an empty stack.
-  // stk.pop();
+  stk.pop();
 
   return 0;
 }
