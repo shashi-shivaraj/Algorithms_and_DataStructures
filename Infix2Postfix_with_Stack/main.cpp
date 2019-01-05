@@ -75,6 +75,8 @@ int precedance(string x, string y) {
 // Convert the input string infix to postfix and return the postfix expression
 string infixToPostfix(string infix) {
   int ind = 0;
+  int left_brace_count = 0,right_brace_count = 0;
+  bool opFlag = false;  /*set to true if current token is arithmetic operator*/
   string token;
   string postfix("");
 
@@ -90,21 +92,31 @@ string infixToPostfix(string infix) {
 		std::cout<<"wrinting to postfix: "<< token <<std::endl;
 		token = token + " ";
 		postfix = postfix + token;
+		opFlag = false;
 	}
 	else if(isOperator(token))
 	{
-		if(operStack.isEmpty()) //(a) if the stack is empty, push the operator into stack.
+		
+		//set opflag 
+		if(token.compare("(") && token.compare(")"))
+		{
+			opFlag = true; // set to true,next token must end with operand
+		}
+		
+		if(!token.compare("("))//(b) else if the operator is a (, then push it into the stack
 		{
 			std::cout<<"pushing to stack: "<<token<<std::endl;
 			operStack.push(token);
+			left_brace_count ++ ;
 		}
-		else if(!token.compare("("))//(b) else if the operator is a (, then push it into the stack
+		else if(operStack.isEmpty()) //(a) if the stack is empty, push the operator into stack.
 		{
 			std::cout<<"pushing to stack: "<<token<<std::endl;
 			operStack.push(token);
 		}
 		else if(!token.compare(")")) //(c) else if the operator is a ), then pop all operators from the stack and write to postfix expression until a (. 				 
 		{
+			right_brace_count ++;
 			while(operStack.isEmpty() == false && operStack.topOfStack() != "(")
 			{
 				std::cout<<"poping from stack "<<operStack.topOfStack()<<std::endl;
@@ -131,7 +143,27 @@ string infixToPostfix(string infix) {
 	
     token = getToken(infix, ind);
   }
-
+  
+  if(left_brace_count != right_brace_count)
+  {
+	  if(left_brace_count > right_brace_count)
+	  {
+		  std::cout<<"[ERROR]Missing right braces"<<std::endl; 
+	  }
+	  else
+	  {
+		  std::cout<<"[ERROR]Missing left braces"<<std::endl;
+	  }
+	  
+	  return string("");
+  }
+  
+  if(opFlag == true)
+  {
+	  std::cout<<"[ERROR]invalid expression"<<std::endl;
+	  return string("");
+  }
+  
   while(operStack.isEmpty() == false) //Pop all the remaining items in stack and write to postfix expression.
   {
 	std::cout<<"poping from stack "<<operStack.topOfStack()<<std::endl;
