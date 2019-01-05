@@ -8,6 +8,17 @@ using std::cin;
 
 #include "stringStack.h"
 
+//operator overload 
+
+string operator+(const string &one ,const string &two)
+{
+	string res;
+	res.append(one);
+	res.append(two);
+	
+	return res;
+}
+
 // Gives the next token in the expr. 
 string getToken(const string expr, int& index) {
   if (index >= expr.length()) return string("");
@@ -74,15 +85,58 @@ string infixToPostfix(string infix) {
   while (token != string("")) {
     cout << "processing token " << token << endl;	// The next token is available. Now just process this token.
 
-    // --- Your code starts here ---
-
-
-    // --- Your code ends here ---
-
+    if(isOperand(token)) //if the token is an operand, write it to the postfix expression.
+    {
+		std::cout<<"wrinting to postfix: "<< token <<std::endl;
+		token = token + " ";
+		postfix = postfix + token;
+	}
+	else if(isOperator(token))
+	{
+		if(operStack.isEmpty()) //(a) if the stack is empty, push the operator into stack.
+		{
+			std::cout<<"pushing to stack: "<<token<<std::endl;
+			operStack.push(token);
+		}
+		else if(!token.compare("("))//(b) else if the operator is a (, then push it into the stack
+		{
+			std::cout<<"pushing to stack: "<<token<<std::endl;
+			operStack.push(token);
+		}
+		else if(!token.compare(")")) //(c) else if the operator is a ), then pop all operators from the stack and write to postfix expression until a (. 				 
+		{
+			while(operStack.isEmpty() == false && operStack.topOfStack() != "(")
+			{
+				std::cout<<"poping from stack "<<operStack.topOfStack()<<std::endl;
+				postfix = postfix + operStack.pop() + " ";
+			}
+			std::cout<<"poping from stack "<<operStack.topOfStack()<<std::endl;
+			operStack.pop();//Pop ( from the stack.
+		}
+		else
+		{
+			//i. while the top of stack has higher or equal precedence than the input token.
+			//A. pop the top of stack and write it to the postfix expression.
+			while(operStack.isEmpty() == false && (precedance(operStack.topOfStack(),token) >= 0))
+			{
+				std::cout<<"poping from stack "<<operStack.topOfStack()<<std::endl;
+				postfix = postfix + operStack.pop() + " ";
+			}
+			
+			//ii. push token into stack.
+			std::cout<<"pushing to stack: "<<token<<std::endl;
+			operStack.push(token);
+		}	
+	}
+	
     token = getToken(infix, ind);
   }
 
-  // --- Some more code here ---
+  while(operStack.isEmpty() == false) //Pop all the remaining items in stack and write to postfix expression.
+  {
+	std::cout<<"poping from stack "<<operStack.topOfStack()<<std::endl;
+	postfix = postfix + operStack.pop() + " ";
+  }
 
   return postfix;
 }
