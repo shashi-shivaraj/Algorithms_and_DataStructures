@@ -40,8 +40,10 @@ bool IntSet::find(int key)
 /* Inserts a new key.  It is an error if key is already in the set. */
 void IntSet::insert(int key)
 {
-  bool isLast = true; 	
-  assert (!find(key));
+  bool isLast = true;
+   	
+  if(find(key)) //key already present in the list
+  return;
   
   //insert the node to the list to form a sorted linked list (in ascending order)
   if(!head)
@@ -85,7 +87,8 @@ void IntSet::insert(int key)
 /* Removes a key.  It is an error if key isn't in the set */
 void IntSet::remove(int key)
 {
-  assert (find(key));
+  if(!find(key)) //key not present in list
+  return;
   
   Node *temp = head,*curr = NULL,*prev = NULL;
   while (temp != NULL) 
