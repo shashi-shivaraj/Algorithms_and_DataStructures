@@ -83,7 +83,7 @@ int main()
 		std::cout<<"key not found"<<std::endl;
 		
 CLEANUP:
-		delete digits;
+		delete []digits;
 		
 	return 0;
 }
