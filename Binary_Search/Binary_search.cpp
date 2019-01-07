@@ -28,30 +28,48 @@ int main()
 		std::cout<<"total numbers must be above 1"<<std::endl;
 	}
 	
+	std::cout<<"The numbers are:"<<std::endl;
+	
 	//allocate heap memory
 	digits = new int[count];
 	
 	//get the input numbers
-	std::cout<<"enter the numbers in ascending order [sorted]"<<std::endl;
 	for(i=0;i<count;i++)
 	{
-		std::cin>>digits[i];
+		digits[i] = std::rand() % 100;
+		std::cout<<digits[i]<<std::endl;
 	}
 	
 	//get the key number
 	std::cout<<"enter the digit to be searched"<<std::endl;
 	std::cin>>key;
 	
-	//check if the array is sorted
-	for(i=0;i<count-1;i++)
+	//sort the array first using bubble sort
+	bool isSorted = false;
+	int temp = 0,pass = 0;
+	
+	while(isSorted == false)
 	{
-		if(digits[i] > digits[i+1])
+		isSorted = true;
+		for(i = 0;i<count-1-pass;i++)
 		{
-			std::cout<<"entered array is not sorted in ascending order"<<std::endl;
-			goto CLEANUP;
+			if(digits[i]>digits[i+1])
+			{
+				temp = digits[i+1];
+				digits[i+1]  = digits[i];
+				digits[i] = temp;
+				isSorted = false;
+			}
 		}
+		pass++;
 	}
 	
+	std::cout<<"The sorted numbers are:"<<std::endl;
+	//get the input numbers
+	for(i=0;i<count;i++)
+	{
+		std::cout<<digits[i]<<std::endl;
+	}
 	
 	begin = 0;
 	end = count;
