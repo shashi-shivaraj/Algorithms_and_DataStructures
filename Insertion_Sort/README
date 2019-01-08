@@ -1,0 +1,3 @@
+The code performs insertion sort on a array of integers.
+The complexilty of the algorithm is O(log(N*N))in the worst case,where is N is the number of elements in the data set.
+In the best case when the list is already sorted its complexity is O(N).
