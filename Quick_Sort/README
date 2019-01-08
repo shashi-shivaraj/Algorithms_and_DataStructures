@@ -1,0 +1,3 @@
+The code performs quick sort on a array of integers using divide and conquere method.
+The worst case complexilty of the algorithm is O(N*N),where is N is the number of elements in the data set.
+The average case complexilty of the algorithm is O(N*log(N)).
