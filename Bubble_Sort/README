@@ -1,2 +1,2 @@
 The code performs bubble sort on a array of integers.
-The complexilty of the algoritn is O(log(N*N)),where is N is the number of elements in the data set.
+The complexilty of the algorithm is O(log(N*N)),where is N is the number of elements in the data set.
