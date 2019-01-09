@@ -72,10 +72,37 @@ void convertBtoD (unsigned int startCol, unsigned int endCol, unsigned int start
 
 /* This function is used to convert a bitmap from format B to format D. The columns of this matrix are defined by
    startCol to endCol and the rows are defined by startRow to endRow. */
-void convertDtoB (unsigned int startCol, unsigned int endCol, unsigned int startRow, unsigned int endRow) {
-  // Your code here
-
-  // Don't forget your base cases
+void convertDtoB (unsigned int startCol, unsigned int endCol, unsigned int startRow, unsigned int endRow)
+{
+	if(formatD[ind] == '0' || formatD[ind] == '1')
+	{
+		unsigned short val = (formatD[ind] == '0') ? 0 : 1 ;
+		for(int r = startRow;r < endRow; r++)
+		{
+			for(int c = startCol;c < endCol;c++)
+			{
+				mat[r][c] = val;
+			}
+		}
+		
+		ind ++; //increment pointer
+	}
+	else if(formatD[ind] == 'D')
+	{
+		ind ++;  //increment pointer
+		int quad_row_size = (endRow - startRow)/2;
+		int quad_col_size = (endCol - startCol)/2;
+		
+		//Recursively compute format D representation of the top-left quadrant.
+		convertDtoB (startCol,startCol+quad_col_size,startRow,startRow+quad_row_size);
+		//Recursively compute format D representation of the top-right quadrant.
+		convertDtoB (startCol + quad_col_size,endCol,startRow,startRow+quad_row_size);
+		//Recursively compute format D representation of the bottom-left quadrant.
+		convertDtoB (startCol,startCol+quad_col_size,startRow+quad_row_size,endRow);
+		//Recursively compute format D representation of the bottom-right quadrant.
+		convertDtoB (startCol+quad_col_size,endCol,startRow+quad_row_size,endRow);
+		
+	}
 }
 
 int main() {
