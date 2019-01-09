@@ -16,10 +16,58 @@ unsigned int ind;			// This is used to traverse format D
 
 /* This function is used to convert a bitmap from format B to format D. The columns of this matrix are defined by
    startCol to endCol and the rows are defined by startRow to endRow. */
-void convertBtoD (unsigned int startCol, unsigned int endCol, unsigned int startRow, unsigned int endRow) {
-  // Your code here
-
-  // Don't forget your base cases
+void convertBtoD (unsigned int startCol, unsigned int endCol, unsigned int startRow, unsigned int endRow) 
+{
+	//std::cout<< "StartCol " <<  startCol << " endCol "<< endCol << " startRow " << startRow << " endRow " << endRow<<std::endl;	
+	int r=0,c=0;
+	unsigned short first_val = 0;
+	bool isDiff = false;
+	
+	//check if all the elements in the matrix is same
+	for(r = startRow;r < endRow;r++)
+	{
+		for(c = startCol; c < endCol;c++)
+		{
+			if(r == startRow && c == startCol)
+				first_val = mat[r][c];
+				
+			if(first_val != mat[r][c])
+			{
+				isDiff = true;
+				break;		
+			}
+		}
+	}
+	
+	if(isDiff == false)
+	{
+		if(first_val == 0)
+		{
+			//std::cout<< "appending 0 "<<std::endl;
+			formatD.append("0");
+		}
+		else if(first_val == 1)
+		{
+			//std::cout<< "appending 1 "<<std::endl;
+			formatD.append("1");
+		}
+	}
+	else
+	{
+		//std::cout<< "appending D "<<std::endl;
+		formatD.append("D");
+		int quad_row_size = (endRow - startRow)/2;
+		int quad_col_size = (endCol - startCol)/2;
+		
+		//Recursively compute format D representation of the top-left quadrant.
+		convertBtoD (startCol,startCol+quad_col_size,startRow,startRow+quad_row_size);
+		//Recursively compute format D representation of the top-right quadrant.
+		convertBtoD (startCol + quad_col_size,endCol,startRow,startRow+quad_row_size);
+		//Recursively compute format D representation of the bottom-left quadrant.
+		convertBtoD (startCol,startCol+quad_col_size,startRow+quad_row_size,endRow);
+		//Recursively compute format D representation of the bottom-right quadrant.
+		convertBtoD (startCol+quad_col_size,endCol,startRow+quad_row_size,endRow);
+	}
 }
 
 /* This function is used to convert a bitmap from format B to format D. The columns of this matrix are defined by
