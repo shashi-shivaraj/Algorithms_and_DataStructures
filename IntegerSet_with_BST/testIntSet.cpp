@@ -23,6 +23,8 @@ int main() {
   s.print();		// Should print in sorted order
 
   //s.insert(key);	// Inserting a duplicate element. This is an error.
+  
+  s.deleteBST(); //cleanup 
 
   return 0;
 }

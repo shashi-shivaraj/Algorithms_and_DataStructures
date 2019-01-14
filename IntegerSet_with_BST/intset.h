@@ -21,6 +21,7 @@ class IntSet {
   Node* insert (Node* x, int key);
   Node* find (Node* x, int key);
   void inOrder(Node *x);
+  void deleteBST(Node* x);
 
   public:
   IntSet () : root(NULL) {}
@@ -28,6 +29,7 @@ class IntSet {
   void insert (int key);
   Node* find (int key);
   void print ();
+  void deleteBST();
 };
 
 #endif

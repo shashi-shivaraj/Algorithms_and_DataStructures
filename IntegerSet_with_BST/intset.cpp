@@ -83,3 +83,23 @@ void IntSet::print()
   inOrder(root);
   cout << endl;
 }
+
+
+//This is a wrapper function to delete the tree
+void IntSet::deleteBST()
+{
+	deleteBST(root);
+}
+
+
+void IntSet::deleteBST(Node* x)
+{
+	if(!x)
+		return;
+		
+	//post order traverasal
+	deleteBST(x->left); //delete left subtree
+	deleteBST(x->right); //delete right subtree
+	
+	delete x;
+}
