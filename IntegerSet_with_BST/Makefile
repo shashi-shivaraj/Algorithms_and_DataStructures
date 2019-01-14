@@ -20,7 +20,7 @@ EXECUTABLE1 = lab05_BST
 EXECUTABLE2 = test_BST
 
 #list of all .o file for each .cpp file
-OBJECTS := intset.o
+OBJECTS := lab05.o
 OBJECTS += intset.o
 
 
