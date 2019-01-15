@@ -32,7 +32,12 @@ Node* IntSet::insert (Node* x, int key)
 // with a duplicate key.
 void IntSet::insert (int key) 
 {
-  assert(!find(key));
+  if(find(key))
+  {
+	  std::cout<<"Dropping duplicate packet "<< key<<std::endl; 
+	  return;
+  }
+  
   root = insert(root, key);
 }
 
