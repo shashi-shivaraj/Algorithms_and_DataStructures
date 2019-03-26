@@ -14,7 +14,7 @@ CFLAGS  = -g
 LDFLAGS = 
 
 #executable name
-PROJECT		= queue
+PROJECT		= queue_with_2stacks
 
 #list of all .o file for each .cpp file
 OBJECTS := ${PROJECT}.o
