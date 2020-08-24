@@ -35,7 +35,7 @@ public:
         {
             mid = left + ((right-left)/2);
             
-            if(nums[mid] >= target) //modify to find the left most index if duplicates exits
+            if(nums[mid] >= target) //modify to find the left most index if duplicates exits,so move right
             {
                 right = mid - 1;
                 
@@ -65,7 +65,7 @@ public:
         {
             mid = left + ((right-left)/2);
             
-            if(nums[mid] <= target) //modify to find the right most index if duplicates exits
+            if(nums[mid] <= target) //modify to find the right most index if duplicates exits,so move left
             {
                 left = mid + 1;
                 
